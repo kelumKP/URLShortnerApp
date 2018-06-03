@@ -1,4 +1,4 @@
-# URLShortnerApp
+# Details
 This is a URL shortner app project that build for for demonstration purpose. .NET Framework 4.5, MVC 4 and Web API 
 
 # REFERENCES
