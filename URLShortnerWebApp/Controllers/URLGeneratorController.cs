@@ -65,8 +65,7 @@ namespace URLShortnerWebApp.Controllers
 
             }
 
-            return View(reqInfo);
-
+           return View(reqInfo);     
 
         }
     }
