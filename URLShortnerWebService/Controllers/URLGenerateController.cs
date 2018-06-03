@@ -18,6 +18,7 @@ namespace URLShortnerWebService.Controllers
         {
             string shortenUrl = null;
 
+
             try
             {
                 StringBuilder uri = new StringBuilder("http://api.bit.ly/shorten?");

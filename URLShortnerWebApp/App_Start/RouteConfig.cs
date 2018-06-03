@@ -16,7 +16,7 @@ namespace URLShortnerWebApp
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "URLGenerator", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "URLGenerator", action = "GenerateShortenUrl", id = UrlParameter.Optional }
             );
         }
     }
