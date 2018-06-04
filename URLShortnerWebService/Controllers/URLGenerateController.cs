@@ -23,6 +23,20 @@ namespace URLShortnerWebService.Controllers
             string shortenUrl = null;
             var regex = @"((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)$";
 
+            string BITLY_API_URI = "http://api.bit.ly/shorten?";
+            string BITLY_VERSION_NAME = "version=2.0.1";
+            string BITLY_FORMAT = "&format=xml";
+            string BITLY_LONG_URL = "&longUrl=";
+            string BITLY_LOGIN = "&login=";
+            string BITLY_APIKEY = "&apiKey=";
+            string BITLY_REQUEST_METHOD = "GET";
+            string BITLY_CONTENT_TYPE = "application/x-www-form-urlencoded";
+            string BITLY_USER_NAME = "kelumkp";
+            string BITLY_API_KEY = "R_e8a2e639cdb04552a8a0ea1e4822483d";
+            bool BITLY_SERVICE_POINT = false;
+            string BITLY_SHORT_URL = "//shortUrl";
+            int BITLY_CONTENT_LENGTH = 0;
+
             if (longUrl != null && longUrl != "")
             {
                 var match = Regex.Match(longUrl, regex, RegexOptions.IgnoreCase);
@@ -31,28 +45,28 @@ namespace URLShortnerWebService.Controllers
                 {
                     try
                     {
-                        StringBuilder uri = new StringBuilder("http://api.bit.ly/shorten?");
+                        StringBuilder uri = new StringBuilder(BITLY_API_URI);
 
-                        uri.Append("version=2.0.1");
+                        uri.Append(BITLY_VERSION_NAME);
 
-                        uri.Append("&format=xml");
-                        uri.Append("&longUrl=");
+                        uri.Append(BITLY_FORMAT);
+                        uri.Append(BITLY_LONG_URL);
                         uri.Append(HttpUtility.UrlEncode(longUrl));
-                        uri.Append("&login=");
-                        uri.Append(HttpUtility.UrlEncode("kelumkp"));
-                        uri.Append("&apiKey=");
-                        uri.Append(HttpUtility.UrlEncode("R_e8a2e639cdb04552a8a0ea1e4822483d"));
+                        uri.Append(BITLY_LOGIN);
+                        uri.Append(HttpUtility.UrlEncode(BITLY_USER_NAME));
+                        uri.Append(BITLY_APIKEY);
+                        uri.Append(HttpUtility.UrlEncode(BITLY_API_KEY));
 
                         HttpWebRequest request = WebRequest.Create(uri.ToString()) as HttpWebRequest;
-                        request.Method = "GET";
-                        request.ContentType = "application/x-www-form-urlencoded";
-                        request.ServicePoint.Expect100Continue = false;
-                        request.ContentLength = 0;
+                        request.Method = BITLY_REQUEST_METHOD;
+                        request.ContentType = BITLY_CONTENT_TYPE;
+                        request.ServicePoint.Expect100Continue = BITLY_SERVICE_POINT;
+                        request.ContentLength = BITLY_CONTENT_LENGTH;
                         WebResponse objResponse = request.GetResponse();
                         XmlDocument objXML = new XmlDocument();
                         objXML.Load(objResponse.GetResponseStream());
 
-                        XmlNode nShortUrl = objXML.SelectSingleNode("//shortUrl");
+                        XmlNode nShortUrl = objXML.SelectSingleNode(BITLY_SHORT_URL);
 
                         shortenUrl = nShortUrl.InnerText;
 
