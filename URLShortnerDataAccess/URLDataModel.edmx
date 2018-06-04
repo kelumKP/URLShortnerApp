@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="TEST_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="URL_DATA">
+          <Key>
+            <PropertyRef Name="SHORTEN_URL_ID" />
+          </Key>
+          <Property Name="SHORTEN_URL_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SHORTEN_URL_NAME" Type="nvarchar" MaxLength="1000" />
+          <Property Name="LONG_URL_NAME" Type="nvarchar" MaxLength="4000" />
+          <Property Name="TOTAL_VISIT_COUNT" Type="int" />
+        </EntityType>
+        <EntityType Name="USER_DATA">
+          <Key>
+            <PropertyRef Name="USER_ID" />
+          </Key>
+          <Property Name="USER_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USER_NAME" Type="nvarchar" MaxLength="200" />
+          <Property Name="USER_IP_ADRESS" Type="nvarchar" MaxLength="1000" />
+          <Property Name="USER_LOCATION" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="USER_URL_RECORDS">
+          <Key>
+            <PropertyRef Name="RECORD_ID" />
+          </Key>
+          <Property Name="RECORD_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="USER_ID" Type="int" />
+          <Property Name="URL_ID" Type="int" />
+        </EntityType>
+        <Association Name="URLID_FK">
+          <End Role="URL_DATA" Type="Self.URL_DATA" Multiplicity="0..1" />
+          <End Role="USER_URL_RECORDS" Type="Self.USER_URL_RECORDS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="URL_DATA">
+              <PropertyRef Name="SHORTEN_URL_ID" />
+            </Principal>
+            <Dependent Role="USER_URL_RECORDS">
+              <PropertyRef Name="URL_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="USERID_FK">
+          <End Role="USER_DATA" Type="Self.USER_DATA" Multiplicity="0..1" />
+          <End Role="USER_URL_RECORDS" Type="Self.USER_URL_RECORDS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER_DATA">
+              <PropertyRef Name="USER_ID" />
+            </Principal>
+            <Dependent Role="USER_URL_RECORDS">
+              <PropertyRef Name="USER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TEST_DBModelStoreContainer">
+          <EntitySet Name="URL_DATA" EntityType="Self.URL_DATA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USER_DATA" EntityType="Self.USER_DATA" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="USER_URL_RECORDS" EntityType="Self.USER_URL_RECORDS" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="URLID_FK" Association="Self.URLID_FK">
+            <End Role="URL_DATA" EntitySet="URL_DATA" />
+            <End Role="USER_URL_RECORDS" EntitySet="USER_URL_RECORDS" />
+          </AssociationSet>
+          <AssociationSet Name="USERID_FK" Association="Self.USERID_FK">
+            <End Role="USER_DATA" EntitySet="USER_DATA" />
+            <End Role="USER_URL_RECORDS" EntitySet="USER_URL_RECORDS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TEST_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="URL_DATA">
+          <Key>
+            <PropertyRef Name="SHORTEN_URL_ID" />
+          </Key>
+          <Property Name="SHORTEN_URL_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SHORTEN_URL_NAME" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="LONG_URL_NAME" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="TOTAL_VISIT_COUNT" Type="Int32" />
+          <NavigationProperty Name="USER_URL_RECORDS" Relationship="Self.URLID_FK" FromRole="URL_DATA" ToRole="USER_URL_RECORDS" />
+        </EntityType>
+        <EntityType Name="USER_DATA">
+          <Key>
+            <PropertyRef Name="USER_ID" />
+          </Key>
+          <Property Name="USER_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USER_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="USER_IP_ADRESS" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="USER_LOCATION" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="USER_URL_RECORDS" Relationship="Self.USERID_FK" FromRole="USER_DATA" ToRole="USER_URL_RECORDS" />
+        </EntityType>
+        <EntityType Name="USER_URL_RECORDS">
+          <Key>
+            <PropertyRef Name="RECORD_ID" />
+          </Key>
+          <Property Name="RECORD_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="USER_ID" Type="Int32" />
+          <Property Name="URL_ID" Type="Int32" />
+          <NavigationProperty Name="URL_DATA" Relationship="Self.URLID_FK" FromRole="USER_URL_RECORDS" ToRole="URL_DATA" />
+          <NavigationProperty Name="USER_DATA" Relationship="Self.USERID_FK" FromRole="USER_URL_RECORDS" ToRole="USER_DATA" />
+        </EntityType>
+        <Association Name="URLID_FK">
+          <End Role="URL_DATA" Type="Self.URL_DATA" Multiplicity="0..1" />
+          <End Role="USER_URL_RECORDS" Type="Self.USER_URL_RECORDS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="URL_DATA">
+              <PropertyRef Name="SHORTEN_URL_ID" />
+            </Principal>
+            <Dependent Role="USER_URL_RECORDS">
+              <PropertyRef Name="URL_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="USERID_FK">
+          <End Role="USER_DATA" Type="Self.USER_DATA" Multiplicity="0..1" />
+          <End Role="USER_URL_RECORDS" Type="Self.USER_URL_RECORDS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USER_DATA">
+              <PropertyRef Name="USER_ID" />
+            </Principal>
+            <Dependent Role="USER_URL_RECORDS">
+              <PropertyRef Name="USER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="TEST_DBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="URL_DATA" EntityType="Self.URL_DATA" />
+          <EntitySet Name="USER_DATA" EntityType="Self.USER_DATA" />
+          <EntitySet Name="USER_URL_RECORDS" EntityType="Self.USER_URL_RECORDS" />
+          <AssociationSet Name="URLID_FK" Association="Self.URLID_FK">
+            <End Role="URL_DATA" EntitySet="URL_DATA" />
+            <End Role="USER_URL_RECORDS" EntitySet="USER_URL_RECORDS" />
+          </AssociationSet>
+          <AssociationSet Name="USERID_FK" Association="Self.USERID_FK">
+            <End Role="USER_DATA" EntitySet="USER_DATA" />
+            <End Role="USER_URL_RECORDS" EntitySet="USER_URL_RECORDS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TEST_DBModelStoreContainer" CdmEntityContainer="TEST_DBEntities">
+          <EntitySetMapping Name="URL_DATA">
+            <EntityTypeMapping TypeName="TEST_DBModel.URL_DATA">
+              <MappingFragment StoreEntitySet="URL_DATA">
+                <ScalarProperty Name="SHORTEN_URL_ID" ColumnName="SHORTEN_URL_ID" />
+                <ScalarProperty Name="SHORTEN_URL_NAME" ColumnName="SHORTEN_URL_NAME" />
+                <ScalarProperty Name="LONG_URL_NAME" ColumnName="LONG_URL_NAME" />
+                <ScalarProperty Name="TOTAL_VISIT_COUNT" ColumnName="TOTAL_VISIT_COUNT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USER_DATA">
+            <EntityTypeMapping TypeName="TEST_DBModel.USER_DATA">
+              <MappingFragment StoreEntitySet="USER_DATA">
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="USER_NAME" ColumnName="USER_NAME" />
+                <ScalarProperty Name="USER_IP_ADRESS" ColumnName="USER_IP_ADRESS" />
+                <ScalarProperty Name="USER_LOCATION" ColumnName="USER_LOCATION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="USER_URL_RECORDS">
+            <EntityTypeMapping TypeName="TEST_DBModel.USER_URL_RECORDS">
+              <MappingFragment StoreEntitySet="USER_URL_RECORDS">
+                <ScalarProperty Name="RECORD_ID" ColumnName="RECORD_ID" />
+                <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
+                <ScalarProperty Name="URL_ID" ColumnName="URL_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "URLShortnerWebService", "UR
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "URLShortnerWebApp", "URLShortnerWebApp\URLShortnerWebApp.csproj", "{71FC2DDB-6213-4B8A-AB93-7CE2D3BAB795}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "URLShortnerDataAccess", "URLShortnerDataAccess\URLShortnerDataAccess.csproj", "{BEC05EF9-9D2E-4CF7-91A9-005641BA369A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{71FC2DDB-6213-4B8A-AB93-7CE2D3BAB795}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71FC2DDB-6213-4B8A-AB93-7CE2D3BAB795}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71FC2DDB-6213-4B8A-AB93-7CE2D3BAB795}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEC05EF9-9D2E-4CF7-91A9-005641BA369A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEC05EF9-9D2E-4CF7-91A9-005641BA369A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEC05EF9-9D2E-4CF7-91A9-005641BA369A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEC05EF9-9D2E-4CF7-91A9-005641BA369A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
