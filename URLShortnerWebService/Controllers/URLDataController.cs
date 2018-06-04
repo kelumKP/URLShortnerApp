@@ -14,6 +14,7 @@ namespace URLShortnerWebService.Controllers
         TEST_DBEntities context = new TEST_DBEntities();
 
         [HttpGet]
+        [Route("api/URLData/GetURLDetails")]
         public UrlData GetURLDetails(string shortenUrl)
         {
             try
@@ -35,6 +36,33 @@ namespace URLShortnerWebService.Controllers
             { 
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
             }  
+        }
+
+        [HttpGet]
+        [Route("api/URLData/GetURL_USERDetails")]
+        public IEnumerable<UserData> GetURL_USERDetails(string shortenUrl)
+        {
+            try
+            {
+                var fetchRecord = (from urld in context.URL_DATA
+                                   join usrurl in context.USER_URL_RECORDS on urld.SHORTEN_URL_ID equals usrurl.URL_ID
+                                   join usrdta in context.USER_DATA on usrurl.USER_ID equals usrdta.USER_ID
+                                   where urld.SHORTEN_URL_NAME == shortenUrl
+                                   select new UserData
+                                   {
+                                       USER_ID = usrdta.USER_ID,
+                                       USER_NAME = usrdta.USER_NAME,
+                                       USER_IP_ADRESS = usrdta.USER_IP_ADRESS,
+                                       USER_LOCATION = usrdta.USER_LOCATION,
+
+                                   });
+
+                return fetchRecord.Distinct().ToList();
+            }
+            catch (Exception)
+            {
+                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
+            }
         }
     }
 }
