@@ -13,6 +13,9 @@ namespace URLShortnerWebService.Controllers
     {
         TEST_DBEntities context = new TEST_DBEntities();
 
+        /// <summary>
+        /// GET URL basic data by once pass shorten URL its retriving the its "Id", "Long Url", "Total Visits"
+        /// </summary>
         [HttpGet]
         [Route("api/URLData/GetURLDetails")]
         public UrlData GetURLDetails(string shortenUrl)
@@ -38,6 +41,9 @@ namespace URLShortnerWebService.Controllers
             }  
         }
 
+        /// <summary>
+        /// GET URL vistors list data by once pass shorten URL. its retriving the "User Id", "User Name", "IP Address" , "User Location"
+        /// </summary>
         [HttpGet]
         [Route("api/URLData/GetURL_USERDetails")]
         public IEnumerable<UserData> GetURL_USERDetails(string shortenUrl)

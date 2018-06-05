@@ -16,6 +16,9 @@ namespace URLShortnerWebService.Controllers
     {
         URLShortenViewModel urlRquestOutput = new URLShortenViewModel();
 
+        /// <summary>
+        /// GET shorten URL once provide the long URL
+        /// </summary>
         // GET api/values/5
         [HttpGet]
         public URLShortenViewModel GenerateURL(string longUrl)
