@@ -26,10 +26,18 @@
         <div class="form-group">
             @Html.LabelFor(model => model.shortenURL, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <a href="@Html.DisplayFor(model => model.shortenURL)" target="_blank">@Html.DisplayFor(model => model.shortenURL, new { htmlAttributes = new { @class = "form-control" } })</a>
+                <a href="@Url.Action("VisitShortenUrl", "URLGenerator", new URLShortnerWebApp.Models.URLShortenViewModel { longURL = (@Model.longURL != null ?  @Model.longURL  : null) , shortenURL = (@Model.shortenURL != null ? @Model.shortenURL : null) })" target="_blank">@Html.DisplayFor(model => model.shortenURL, new { htmlAttributes = new { @class = "form-control" } })</a>
                 @Html.ValidationMessageFor(model => model.shortenURL, "", new { @class = "text-danger" })
             </div>
         </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.shortenURL, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <a href="@Html.DisplayFor(model => model.shortenURL)" target="_blank">@Html.DisplayFor(model => model.shortenURL, new { htmlAttributes = new { @class = "form-control" } })</a>
+                @Html.ValidationMessageFor(model => model.shortenURL, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

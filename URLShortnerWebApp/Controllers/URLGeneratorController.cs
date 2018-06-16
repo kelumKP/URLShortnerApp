@@ -1,13 +1,20 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.Sockets;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml;
 using URLShortnerWebApp.Models;
+using System.IO;
+
 
 namespace URLShortnerWebApp.Controllers
 {
@@ -17,15 +24,28 @@ namespace URLShortnerWebApp.Controllers
         string Baseurl = "http://localhost:51184";
 
         // GET: URLGenerator
-        public ActionResult Index()
+        [HttpGet]
+        public ActionResult GenerateShortenUrl()
         {
-            return View();
+            try
+            {
+                URLShortenViewModel urlRquestInfo = new URLShortenViewModel();
+                urlRquestInfo.longURL = null;
+                urlRquestInfo.shortenURL = null;
+
+                return View(urlRquestInfo);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            } 
+            
         }
 
+        [HttpPost]
         public async Task<ActionResult> GenerateShortenUrl(URLShortenViewModel reqInfo)
         {
             URLShortenViewModel urlRquestInfo = new URLShortenViewModel();
-
 
             if (ModelState.IsValid)
             {
@@ -68,5 +88,80 @@ namespace URLShortnerWebApp.Controllers
            return View(reqInfo);     
 
         }
+
+        public async Task<ActionResult> VisitShortenUrl(URLShortenViewModel reqInfo)
+        {
+            try
+            {
+                VisitedUserData vistedUser = new VisitedUserData();
+                IpInfo visitedIPData = new IpInfo();
+
+                // Private details
+                vistedUser.HostMachineName = Dns.GetHostName();
+                vistedUser.MachinePrivateIP = Dns.GetHostByName(vistedUser.HostMachineName).AddressList[0].ToString();
+
+                // Public details
+                visitedIPData = GetUserDetailByIp(GetPublicIP());
+                vistedUser.MachinePublicIP = visitedIPData.Ip;
+                vistedUser.LongURL = reqInfo.longURL;
+                vistedUser.ShortenURL = reqInfo.shortenURL;
+                vistedUser.VisitedCountry = visitedIPData.Country;
+                vistedUser.VisitedRegion = visitedIPData.Region;
+                vistedUser.VisitedCity = visitedIPData.City;
+                vistedUser.ServiceProviderName = visitedIPData.Hostname;
+
+                // Save Details to DB
+
+                return Redirect(reqInfo.shortenURL);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        // Get user details
+        internal static IpInfo GetUserDetailByIp(string ip)
+        {
+            IpInfo ipInfo = new IpInfo();
+
+            try
+            {
+                string info = new WebClient().DownloadString("http://ipinfo.io/" + ip);
+                ipInfo = JsonConvert.DeserializeObject<IpInfo>(info);
+                RegionInfo myRI1 = new RegionInfo(ipInfo.Country);                  
+                ipInfo.Country = myRI1.EnglishName;
+            }
+            catch (Exception)
+            {
+                ipInfo = null;
+            }
+
+            return ipInfo;
+        }
+
+        // Get the public IP address
+        internal static string GetPublicIP()
+        {
+            try
+            {
+                string url = "http://checkip.dyndns.org";
+                WebRequest req = WebRequest.Create(url);
+                WebResponse resp = req.GetResponse();
+                StreamReader sr = new StreamReader(resp.GetResponseStream());
+                string response = sr.ReadToEnd().Trim();
+                string[] a = response.Split(':');
+                string a2 = a[1].Substring(1);
+                string[] a3 = a2.Split('<');
+                string a4 = a3[0];
+                return a4;
+            }
+            catch (Exception ex)
+            { 
+                throw ex;
+            } 
+        }
+
     }
 }

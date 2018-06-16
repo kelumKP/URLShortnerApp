@@ -146,7 +146,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\IpInfo.cs" />
     <Compile Include="Models\URLShortenViewModel.cs" />
+    <Compile Include="Models\VisitedUserData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
