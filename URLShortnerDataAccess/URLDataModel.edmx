@@ -19,9 +19,13 @@
             <PropertyRef Name="USER_ID" />
           </Key>
           <Property Name="USER_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="USER_NAME" Type="nvarchar" MaxLength="200" />
-          <Property Name="USER_IP_ADRESS" Type="nvarchar" MaxLength="1000" />
-          <Property Name="USER_LOCATION" Type="nvarchar" MaxLength="1000" />
+          <Property Name="USER_MACHINE_NAME" Type="nvarchar" MaxLength="200" />
+          <Property Name="USER_PRIVATE_IP_ADDRESS" Type="nvarchar" MaxLength="1000" />
+          <Property Name="USER_PUBLIC_IP_ADDRESS" Type="nvarchar" MaxLength="1000" />
+          <Property Name="USER_LOCATION_COUNTRY" Type="nvarchar" MaxLength="1000" />
+          <Property Name="USER_LOCATION_REGION" Type="nvarchar" MaxLength="1000" />
+          <Property Name="USER_LOCATION_CITY" Type="nvarchar" MaxLength="1000" />
+          <Property Name="USER_SERVICE_PROVIDER" Type="nvarchar" MaxLength="1000" />
         </EntityType>
         <EntityType Name="USER_URL_RECORDS">
           <Key>
@@ -88,9 +92,13 @@
             <PropertyRef Name="USER_ID" />
           </Key>
           <Property Name="USER_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="USER_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="USER_IP_ADRESS" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="USER_LOCATION" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="USER_MACHINE_NAME" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="USER_PRIVATE_IP_ADDRESS" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="USER_PUBLIC_IP_ADDRESS" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="USER_LOCATION_COUNTRY" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="USER_LOCATION_REGION" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="USER_LOCATION_CITY" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="USER_SERVICE_PROVIDER" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="USER_URL_RECORDS" Relationship="Self.USERID_FK" FromRole="USER_DATA" ToRole="USER_URL_RECORDS" />
         </EntityType>
         <EntityType Name="USER_URL_RECORDS">
@@ -160,9 +168,13 @@
             <EntityTypeMapping TypeName="TEST_DBModel.USER_DATA">
               <MappingFragment StoreEntitySet="USER_DATA">
                 <ScalarProperty Name="USER_ID" ColumnName="USER_ID" />
-                <ScalarProperty Name="USER_NAME" ColumnName="USER_NAME" />
-                <ScalarProperty Name="USER_IP_ADRESS" ColumnName="USER_IP_ADRESS" />
-                <ScalarProperty Name="USER_LOCATION" ColumnName="USER_LOCATION" />
+                <ScalarProperty Name="USER_MACHINE_NAME" ColumnName="USER_MACHINE_NAME" />
+                <ScalarProperty Name="USER_PRIVATE_IP_ADDRESS" ColumnName="USER_PRIVATE_IP_ADDRESS" />
+                <ScalarProperty Name="USER_PUBLIC_IP_ADDRESS" ColumnName="USER_PUBLIC_IP_ADDRESS" />
+                <ScalarProperty Name="USER_LOCATION_COUNTRY" ColumnName="USER_LOCATION_COUNTRY" />
+                <ScalarProperty Name="USER_LOCATION_REGION" ColumnName="USER_LOCATION_REGION" />
+                <ScalarProperty Name="USER_LOCATION_CITY" ColumnName="USER_LOCATION_CITY" />
+                <ScalarProperty Name="USER_SERVICE_PROVIDER" ColumnName="USER_SERVICE_PROVIDER" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

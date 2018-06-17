@@ -4,9 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="36ad09f6bf6a4b43b5cd26cc64f95a79" Name="Diagram1">
+      <Diagram DiagramId="e6e10f01687c44cebf09d8372c34e969" Name="Diagram1">
         <EntityTypeShape EntityType="TEST_DBModel.URL_DATA" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="TEST_DBModel.USER_DATA" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TEST_DBModel.USER_DATA" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
         <EntityTypeShape EntityType="TEST_DBModel.USER_URL_RECORDS" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
         <AssociationConnector Association="TEST_DBModel.URLID_FK" ManuallyRouted="false" />
         <AssociationConnector Association="TEST_DBModel.USERID_FK" ManuallyRouted="false" />

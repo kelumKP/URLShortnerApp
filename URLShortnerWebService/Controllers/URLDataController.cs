@@ -57,10 +57,13 @@ namespace URLShortnerWebService.Controllers
                                    select new UserData
                                    {
                                        USER_ID = usrdta.USER_ID,
-                                       USER_NAME = usrdta.USER_NAME,
-                                       USER_IP_ADRESS = usrdta.USER_IP_ADRESS,
-                                       USER_LOCATION = usrdta.USER_LOCATION,
-
+                                       USER_MACHINE_NAME = usrdta.USER_MACHINE_NAME,
+                                       USER_PRIVATE_IP_ADDRESS = usrdta.USER_PRIVATE_IP_ADDRESS,
+                                       USER_PUBLIC_IP_ADDRESS = usrdta.USER_PUBLIC_IP_ADDRESS,
+                                       USER_LOCATION_COUNTRY = usrdta.USER_LOCATION_COUNTRY,
+                                       USER_LOCATION_REGION = usrdta.USER_LOCATION_REGION,
+                                       USER_LOCATION_CITY = usrdta.USER_LOCATION_CITY,
+                                       USER_SERVICE_PROVIDER = usrdta.USER_SERVICE_PROVIDER
                                    });
 
                 return fetchRecord.Distinct().ToList();
@@ -70,5 +73,28 @@ namespace URLShortnerWebService.Controllers
                 throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.NotFound));
             }
         }
+
+        /// <summary>
+        /// INSERT User Deatils to the DataBase
+        /// </summary>
+        //[HttpGet]
+        //[Route("api/URLData/INSERT_USERDetails")]
+        //public void Insert_USERDetails()
+        //{
+        //    try
+        //    {
+        //        context.URL_DATA.Add(book);
+        //        context.SaveChanges();
+
+        //        return CreatedAtRoute("DefaultApi", new { id = book.Book_Id }, book);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+
+        //}
+
+
     }
 }

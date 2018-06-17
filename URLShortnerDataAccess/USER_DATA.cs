@@ -20,9 +20,13 @@ namespace URLShortnerDataAccess
         }
     
         public int USER_ID { get; set; }
-        public string USER_NAME { get; set; }
-        public string USER_IP_ADRESS { get; set; }
-        public string USER_LOCATION { get; set; }
+        public string USER_MACHINE_NAME { get; set; }
+        public string USER_PRIVATE_IP_ADDRESS { get; set; }
+        public string USER_PUBLIC_IP_ADDRESS { get; set; }
+        public string USER_LOCATION_COUNTRY { get; set; }
+        public string USER_LOCATION_REGION { get; set; }
+        public string USER_LOCATION_CITY { get; set; }
+        public string USER_SERVICE_PROVIDER { get; set; }
     
         public virtual ICollection<USER_URL_RECORDS> USER_URL_RECORDS { get; set; }
     }
